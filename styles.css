@@ -789,7 +789,7 @@ ul { list-style: none; }
 .beneficio-icon svg * { stroke-width: 1.5; opacity: 1; }
 .beneficio-title {
   font-family: "Cormorant Garamond", Georgia, serif;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   font-weight: 500;
   color: var(--gray-900);
   line-height: 1.3;
