@@ -46,6 +46,38 @@
     }
   }
 
+  /* ── Scroll Spy ─────────────────────────────────────────── */
+  function initScrollSpy() {
+    var navLinks = document.querySelectorAll(".nav-link[href^='#']");
+    if (!navLinks.length) return;
+
+    var sections = [];
+    navLinks.forEach(function (link) {
+      var id = link.getAttribute("href").slice(1);
+      var el = document.getElementById(id);
+      if (el) sections.push({ id: id, el: el });
+    });
+    if (!sections.length) return;
+
+    var navH = parseInt(getComputedStyle(document.documentElement).getPropertyValue("--nav-h")) || 72;
+
+    function update() {
+      var scrollY  = window.scrollY + navH + 16;
+      var activeId = sections[0].id;
+
+      sections.forEach(function (s) {
+        if (s.el.offsetTop <= scrollY) activeId = s.id;
+      });
+
+      navLinks.forEach(function (link) {
+        link.classList.toggle("is-active", link.getAttribute("href") === "#" + activeId);
+      });
+    }
+
+    window.addEventListener("scroll", update, { passive: true });
+    update();
+  }
+
   /* ── Smooth Scroll ───────────────────────────────────────── */
   function initSmoothScroll() {
     var navH = parseInt(getComputedStyle(document.documentElement).getPropertyValue("--nav-h")) || 72;
@@ -133,15 +165,6 @@
     counters.forEach(function (el) { io.observe(el); });
   }
 
-  /* ── GSAP ScrollTrigger reveals ─────────────────────────── */
-  function initGSAP() {
-    if (!window.gsap || !window.ScrollTrigger) return;
-    gsap.registerPlugin(ScrollTrigger);
-
-    // Servicios, beneficios y testimonios ya tienen clase `reveal` y son
-    // manejados por el IntersectionObserver de initReveals(). No duplicar con GSAP.
-  }
-
   /* ── Formulario de contacto (Web3Forms) ─────────────────── */
   function initContactForm() {
     var form      = document.getElementById("contact-form");
@@ -203,7 +226,7 @@
     var total       = cards.length;
     var current     = 0;
     var autoTimer   = null;
-    var AUTO_MS     = 5000;
+    var AUTO_MS     = 8000;
     var touchStartX = 0;
 
     function getVisible() {
@@ -309,10 +332,10 @@
   /* ── Boot ────────────────────────────────────────────────── */
   function boot() {
     safe(initNav,          "initNav");
+    safe(initScrollSpy,    "initScrollSpy");
     safe(initSmoothScroll, "initSmoothScroll");
     safe(initReveals,      "initReveals");
     safe(initCountUp,      "initCountUp");
-    safe(initGSAP,         "initGSAP");
     safe(initContactForm,  "initContactForm");
     safe(initSlider,       "initSlider");
   }
