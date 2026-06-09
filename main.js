@@ -329,6 +329,55 @@
     startAuto();
   }
 
+  /* ── FAQ Acordeón animado ───────────────────────────────── */
+  function initFaq() {
+    var items = document.querySelectorAll(".faq-item");
+    if (!items.length) return;
+
+    items.forEach(function (details) {
+      var summary = details.querySelector(".faq-question");
+      var answer  = details.querySelector(".faq-answer");
+      if (!summary || !answer) return;
+
+      summary.addEventListener("click", function (e) {
+        e.preventDefault();
+
+        if (details.open) {
+          // Cerrar: fijar altura actual y animar a 0
+          answer.style.maxHeight = answer.scrollHeight + "px";
+          answer.style.opacity   = "1";
+          requestAnimationFrame(function () {
+            requestAnimationFrame(function () {
+              answer.style.maxHeight = "0";
+              answer.style.opacity   = "0";
+            });
+          });
+          answer.addEventListener("transitionend", function onEnd(ev) {
+            if (ev.propertyName !== "max-height") return;
+            details.removeAttribute("open");
+            answer.removeEventListener("transitionend", onEnd);
+          });
+        } else {
+          // Abrir: mostrar elemento y animar desde 0 hasta altura real
+          details.setAttribute("open", "");
+          answer.style.maxHeight = "0";
+          answer.style.opacity   = "0";
+          requestAnimationFrame(function () {
+            requestAnimationFrame(function () {
+              answer.style.maxHeight = answer.scrollHeight + "px";
+              answer.style.opacity   = "1";
+            });
+          });
+          answer.addEventListener("transitionend", function onEnd(ev) {
+            if (ev.propertyName !== "max-height") return;
+            answer.style.maxHeight = "none";
+            answer.removeEventListener("transitionend", onEnd);
+          });
+        }
+      });
+    });
+  }
+
   /* ── Boot ────────────────────────────────────────────────── */
   function boot() {
     safe(initNav,          "initNav");
@@ -338,6 +387,7 @@
     safe(initCountUp,      "initCountUp");
     safe(initContactForm,  "initContactForm");
     safe(initSlider,       "initSlider");
+    safe(initFaq,          "initFaq");
   }
 
   if (document.readyState === "loading") {
