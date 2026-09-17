@@ -9,10 +9,12 @@ Sitio web profesional de una página (one-page) para **Susana Goan**, numerólog
 - **Repositorio**: `github.com/nlanghoffer/numerologiagoan`
 - **DNS**: Cloudflare (dominio registrado en Namecheap)
 - **CNAME**: `dev.numerologiagoan.com` — valor generado por GitHub al asociar el dominio custom; no editar
-- **Servidor local**:
+- **Ubicación local**: `\\wsl$\Ubuntu\home\nicolas\sites\numerologiagoan` (filesystem de WSL Ubuntu, accesible desde Windows como ruta UNC)
+- **Servidor local** (desde terminal WSL):
+  ```bash
+  python3 -m http.server 8765 --directory ~/sites/numerologiagoan
   ```
-  /c/Python314/python.exe -m http.server 8765 --directory "C:/sites/numerologiagoan"
-  ```
+  Acceder en el navegador de Windows: `http://localhost:8765`
 
 ---
 
