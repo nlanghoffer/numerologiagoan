@@ -211,7 +211,7 @@ El `+` se agrega vía CSS: `.stat-number::after { content: "+"; }`
 
 ## Testimonios — Slider
 
-6 testimonios reales de Google (Ile Lanffer, Karina Falero, Micaela Daiana Laneri, Micaela Castillo, Berenice Macri, Josi Angulo). Todos 5 estrellas.
+7 testimonios reales de Google (Ile Lanffer, Karina Falero, Micaela Daiana Laneri, Micaela Castillo, Berenice Macri, Josi Angulo, Adrian Vaschio). Todos 5 estrellas. Se copian textuales de la ficha de Google Maps, con el nombre tal como figura ahí.
 
 Slides visibles por viewport:
 - Desktop (>900px): 3 slides → `flex: 0 0 calc(100% / 3)`
